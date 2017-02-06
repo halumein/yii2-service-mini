@@ -6,35 +6,17 @@ Yii2-test-module
 
 
 ```
-php composer require halumein/yii2-test-module "*"
+composer require halumein/yii2-service "*"
 ```
 
-миграция:
-
-```
-php yii migrate --migrationPath=vendor/halumein/yii2-test-module/migrations
-```
 
 В конфигурационный файл приложения добавить модуль test
 
 ```php
     'modules' => [
-        'test' => [
-            'class' => 'halumein\test\Module',
+        'service-mini' => [
+            'class' => 'halumein\service-mini\Module',
         ],
-        //...
     ]
 ```
 
-
-
-
-```
-
-
-<?php /* Выведет кнопку */ ?>
-
-<?= halumein\test\widgets\TestButton::widget([
-    'label' => 'Мегакнопка'
-]); ?>
-```

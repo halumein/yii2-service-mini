@@ -1,12 +1,24 @@
-<div class="test-default-index">
-    <h1><?= $this->context->action->uniqueId ?></h1>
-    <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
-        The action belongs to the controller "<?= get_class($this->context) ?>"
-        in the "<?= $this->context->module->id ?>" module.
-    </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= __FILE__ ?></code>
-    </p>
+<div class="default-index">
+    <table class="table table-bordered">
+        <th>Action</th>
+        <th>Params</th>
+        <th>Description</th>
+        <tr>
+            <td>test</td>
+            <td>test</td>
+            <td>Услуги</td>
+        </tr>
+        <tr>
+            <td>test</td>
+            <td>test</td>
+            <td>Категории</td>
+        </tr>
+        <tr>
+            <td>test</td>
+            <td>test</td>
+            <td>Тарифы</td>
+        </tr>
+    </table>
+
+
 </div>

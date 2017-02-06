@@ -1,5 +1,5 @@
 <?php
-namespace halumein\serviceMini;
+namespace halumein\servicemini;
 
 use yii\base\Component;
 use yii\helpers\ArrayHelper;

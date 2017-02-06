@@ -1,6 +1,6 @@
 <?php
 
-namespace halumein\service-mini\controllers;
+namespace halumein\servicemini\controllers;
 
 use yii\web\Controller;
 use yii\filters\VerbFilter;

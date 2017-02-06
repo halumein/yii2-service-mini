@@ -1,6 +1,6 @@
 <?php
 
-namespace halumein\service-mini;
+namespace halumein\serviceMini;
 
 class Module extends \yii\base\Module
 {

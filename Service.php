@@ -1,10 +1,10 @@
 <?php
-namespace halumein\service-mini;
+namespace halumein\serviceMini;
 
 use yii\base\Component;
 use yii\helpers\ArrayHelper;
 
-class Service extends Component
+class ServiceMini extends Component
 {
 
 

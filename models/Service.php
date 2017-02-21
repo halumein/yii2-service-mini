@@ -12,7 +12,7 @@ use Yii;
  * @property string $description
  * @property integer $sort
  */
-class ServiceMini extends \yii\db\ActiveRecord
+class Service extends \yii\db\ActiveRecord
 {
     
     public static function tableName()

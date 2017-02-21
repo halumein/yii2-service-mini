@@ -3,17 +3,17 @@
 namespace halumein\servicemini\controllers;
 
 use Yii;
-use halumein\servicemini\models\ServiceMini;
+use halumein\servicemini\models\Service;
 use yii\helpers\ArrayHelper;
-use halumein\servicemini\models\search\ServiceMiniSearch;
+use halumein\servicemini\models\search\ServiceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ServiceMiniController implements the CRUD actions for ServiceMini model.
+ * ServiceMiniController implements the CRUD actions for Service model.
  */
-class ServiceMiniController extends Controller
+class ServiceController extends Controller
 {
     /**
      * @inheritdoc
@@ -36,7 +36,7 @@ class ServiceMiniController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ServiceMiniSearch();
+        $searchModel = new ServiceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -53,8 +53,8 @@ class ServiceMiniController extends Controller
      */
     public function actionCreate()
     {
-        $model = new ServiceMini();
-        $services = ServiceMini::find()->where("id != :id AND (parent_id = 0 OR parent_id IS NULL)", [':id' => (int)$model->id])->all();
+        $model = new Service();
+        $services = Service::find()->where("id != :id AND (parent_id = 0 OR parent_id IS NULL)", [':id' => (int)$model->id])->all();
         $services = ArrayHelper::map($services, 'id', 'name');
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -77,7 +77,7 @@ class ServiceMiniController extends Controller
     {
         $model = $this->findModel($id);
 
-        $services = ServiceMini::find()->where("id != :id AND (parent_id = 0 OR parent_id IS NULL)", [':id' => (int)$model->id])->all();
+        $services = Service::find()->where("id != :id AND (parent_id = 0 OR parent_id IS NULL)", [':id' => (int)$model->id])->all();
         $services = ArrayHelper::map($services, 'id', 'name');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -107,12 +107,12 @@ class ServiceMiniController extends Controller
      * Finds the ServiceMini model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ServiceMini the loaded model
+     * @return Service the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ServiceMini::findOne($id)) !== null) {
+        if (($model = Service::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

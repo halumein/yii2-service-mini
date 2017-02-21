@@ -3,16 +3,17 @@
 namespace halumein\servicemini\controllers;
 
 use Yii;
-use halumein\servicemini\models\ServiceMiniCategory;
-use halumein\servicemini\models\search\ServiceMiniCategorySearch;
+use halumein\servicemini\models\Category;
+use halumein\servicemini\models\search\CategorySearch;
 use yii\web\Controller;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * MiniServiceCategoryController implements the CRUD actions for ServiceMiniCategory model.
+ * MiniServiceCategoryController implements the CRUD actions for Category model.
  */
-class ServiceMiniCategoryController extends Controller
+class CategoryController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,52 +31,51 @@ class ServiceMiniCategoryController extends Controller
     }
 
     /**
-     * Lists all ServiceMiniCategory models.
+     * Lists all Category models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ServiceMiniCategorySearch();
+        $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $categories = Category::find()->all();
+        $categories = ArrayHelper::map($categories, 'id', 'name');
+        $categories['0'] = 'Нет';
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'categories' => $categories,
         ]);
     }
 
     /**
-     * Displays a single ServiceMiniCategory model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new ServiceMiniCategory model.
+     * Creates a new Category model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ServiceMiniCategory();
-
+        $model = new Category();
+        $categories = Category::find()->where("id != :id AND (parent_category = 0 OR parent_category IS NULL)", [':id' => (int)$model->id])->all();
+        $categories = ArrayHelper::map($categories, 'id', 'name');
+        $categories['0'] = 'Нет';
+        if(!$model->parent_category) {
+            $model->parent_category = 0;
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'categories' => $categories,
             ]);
         }
     }
 
     /**
-     * Updates an existing ServiceMiniCategory model.
+     * Updates an existing Category model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -84,17 +84,25 @@ class ServiceMiniCategoryController extends Controller
     {
         $model = $this->findModel($id);
 
+        $categories = Category::find()->where("id != :id AND (parent_category = 0 OR parent_category IS NULL)", [':id' => (int)$model->id])->all();
+        $categories = ArrayHelper::map($categories, 'id', 'name');
+        $categories['0'] = 'Нет';
+        if(!$model->parent_category) {
+            $model->parent_category = 0;
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'categories' => $categories,
             ]);
         }
     }
 
     /**
-     * Deletes an existing ServiceMiniCategory model.
+     * Deletes an existing Category model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +115,15 @@ class ServiceMiniCategoryController extends Controller
     }
 
     /**
-     * Finds the ServiceMiniCategory model based on its primary key value.
+     * Finds the Category model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ServiceMiniCategory the loaded model
+     * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ServiceMiniCategory::findOne($id)) !== null) {
+        if (($model = Category::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

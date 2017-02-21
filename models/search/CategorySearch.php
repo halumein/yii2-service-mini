@@ -5,12 +5,12 @@ namespace halumein\servicemini\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use halumein\servicemini\models\ServiceMini;
+use halumein\servicemini\models\Category;
 
 /**
- * MiniServiceSearch represents the model behind the search form about `app\models\MiniService`.
+ * ServiceMiniCategorySearch represents the model behind the search form about `app\models\ServiceMiniCategory`.
  */
-class ServiceMiniSearch extends ServiceMini
+class CategorySearch extends Category
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ServiceMiniSearch extends ServiceMini
     public function rules()
     {
         return [
-            [['id', 'sort'], 'integer'],
-            [['name', 'description'], 'safe'],
+            [['id', 'parent_category', 'sort'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ServiceMiniSearch extends ServiceMini
      */
     public function search($params)
     {
-        $query = ServiceMini::find();
+        $query = Category::find();
 
         // add conditions that should always apply here
 
@@ -60,11 +60,11 @@ class ServiceMiniSearch extends ServiceMini
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'parent_category' => $this->parent_category,
             'sort' => $this->sort,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

@@ -53,33 +53,33 @@ class Category extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Название',
             'parent_category' => 'Родительская категория',
-            'sort' => 'Сортировка',
+            'sort' => 'Приоритет',
         ];
     }
 
     public function getChilds()
     {
-        return $this->hasMany(self::className(), ['parent_id' => 'id']);
+        return $this->hasMany(self::className(), ['parent_category' => 'id']);
     }
 
     public function getCategory()
     {
-        return $this->hasOne(self::className(), ['id' => 'parent_id']);
+        return $this->hasOne(self::className(), ['id' => 'parent_category']);
     }
 
     public function getParent()
     {
-        return $this->hasOne(self::className(), ['id' => 'parent_id']);
+        return $this->hasOne(self::className(), ['id' => 'parent_category']);
     }
 
-    public static function buildTree($parent_id = null)
+    public static function buildTree($parent_category = null)
     {
         $return = [];
 
-        if(empty($parent_id)) {
-            $categories = Category::find()->where('parent_id = 0 OR parent_id is null')->orderBy('sort DESC')->asArray()->all();
+        if(empty($parent_category)) {
+            $categories = Category::find()->where('parent_category = 0 OR parent_category is null')->orderBy('sort DESC')->asArray()->all();
         } else {
-            $categories = Category::find()->where(['parent_id' => $parent_id])->orderBy('sort DESC')->asArray()->all();
+            $categories = Category::find()->where(['parent_category' => $parent_category])->orderBy('sort DESC')->asArray()->all();
         }
 
         foreach($categories as $level1) {
@@ -98,9 +98,9 @@ class Category extends \yii\db\ActiveRecord
         $level++;
 
         if(empty($id)) {
-            $categories = Category::find()->where('parent_id = 0 OR parent_id is null')->orderBy('sort DESC')->asArray()->all();
+            $categories = Category::find()->where('parent_category = 0 OR parent_category is null')->orderBy('sort DESC')->asArray()->all();
         } else {
-            $categories = Category::find()->where(['parent_id' => $id])->orderBy('sort DESC')->asArray()->all();
+            $categories = Category::find()->where(['parent_category' => $id])->orderBy('sort DESC')->asArray()->all();
         }
 
         foreach($categories as $category) {

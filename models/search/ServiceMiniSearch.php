@@ -5,12 +5,12 @@ namespace halumein\servicemini\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use halumein\servicemini\models\MiniService;
+use halumein\servicemini\models\ServiceMini;
 
 /**
  * MiniServiceSearch represents the model behind the search form about `app\models\MiniService`.
  */
-class MiniServiceSearch extends MiniService
+class ServiceMiniSearch extends ServiceMini
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class MiniServiceSearch extends MiniService
      */
     public function search($params)
     {
-        $query = MiniService::find();
+        $query = ServiceMini::find();
 
         // add conditions that should always apply here
 

@@ -4,18 +4,17 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model halumein\servicemini\models\MiniService */
+/* @var $model halumein\servicemini\models\ServiceMini */
 
-$this->title = 'Create Mini Service';
-$this->params['breadcrumbs'][] = ['label' => 'Mini Services', 'url' => ['index']];
+$this->title = 'Добавление услуги';
+$this->params['breadcrumbs'][] = ['label' => 'Услуги', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mini-service-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    
     <?= $this->render('_form', [
         'model' => $model,
+        'services' => $services,
     ]) ?>
 
 </div>

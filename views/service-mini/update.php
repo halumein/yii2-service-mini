@@ -3,12 +3,12 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model halumein\servicemini\models\MiniService */
+/* @var $model halumein\servicemini\models\ServiceMini */
 
-$this->title = 'Update Mini Service: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Mini Services', 'url' => ['index']];
+$this->title = 'Редактирование услуги: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Услуги', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="mini-service-update">
 
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'services' => $services,
     ]) ?>
 
 </div>

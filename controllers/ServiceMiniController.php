@@ -4,6 +4,7 @@ namespace halumein\servicemini\controllers;
 
 use Yii;
 use halumein\servicemini\models\ServiceMini;
+use yii\helpers\ArrayHelper;
 use halumein\servicemini\models\search\ServiceMiniSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -43,18 +44,7 @@ class ServiceMiniController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
-    /**
-     * Displays a single ServiceMini model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+    
 
     /**
      * Creates a new ServiceMini model.
@@ -64,12 +54,15 @@ class ServiceMiniController extends Controller
     public function actionCreate()
     {
         $model = new ServiceMini();
-
+        $services = ServiceMini::find()->where("id != :id AND (parent_id = 0 OR parent_id IS NULL)", [':id' => (int)$model->id])->all();
+        $services = ArrayHelper::map($services, 'id', 'name');
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'services' => $services,
             ]);
         }
     }
@@ -84,11 +77,15 @@ class ServiceMiniController extends Controller
     {
         $model = $this->findModel($id);
 
+        $services = ServiceMini::find()->where("id != :id AND (parent_id = 0 OR parent_id IS NULL)", [':id' => (int)$model->id])->all();
+        $services = ArrayHelper::map($services, 'id', 'name');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'services' => $services,
             ]);
         }
     }

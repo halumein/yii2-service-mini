@@ -25,7 +25,7 @@ class ServiceMini extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['description'], 'string'],
-            [['sort'], 'integer'],
+            [['sort','parent_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -36,7 +36,13 @@ class ServiceMini extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Название',
             'description' => 'Описание',
-            'sort' => 'Сортировка',
+            'parent_id' => 'Родительская услуга',
+            'sort' => 'Приоритет',
         ];
+    }
+
+    public function getService()
+    {
+        return $this->hasOne(self::className(), ['id' => 'parent_id']);
     }
 }

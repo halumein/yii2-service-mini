@@ -1,9 +1,7 @@
-Yii2-test-module
+Yii2-service-mini
 ==========
 
-
-Тестовый модуль для использования в качестве учебного материала
-
+Про тарифные сетки
 
 ```
 composer require halumein/yii2-service "*"

@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $searchModel,
                     'parent_category',
                     $categories,
-                    ['class' => 'form-control', 'prompt' => 'Материнская категория']
+                    ['class' => 'form-control', 'prompt' => 'Родительская категория']
                 ),
             ],
             ['class' => 'yii\grid\ActionColumn', 'template' => '{update} {delete}',  'buttonOptions' => ['class' => 'btn btn-default'], 'options' => ['style' => 'width: 100px;']],

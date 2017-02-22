@@ -44,8 +44,8 @@ class ServiceToCategory extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'service_id' => 'ID Услуги',
-            'category_id' => 'ID Категории',
+            'service_id' => 'Услуга',
+            'category_id' => 'Категория',
             'price' => 'Цена',
             'max_discount' => 'Максимальная скидка',
             'description' => 'Описание',

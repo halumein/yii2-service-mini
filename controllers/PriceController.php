@@ -41,29 +41,14 @@ class PriceController extends Controller
     public function actionIndex()
     {
 
-        $count = count(Yii::$app->request->post('ServiceToCategory', []));
-        $tariffs = [new ServiceToCategory()];
-        for($i = 1; $i < $count; $i++) {
-            $tariffs[] = new ServiceToCategory();
-        }
-
         $services = Service::find()->all();
         $categories = Category::find()->all();
-        $tariffs = ServiceToCategory::find()->indexBy('id')->all();
-        $tariff_model = ServiceToCategory::className();
+        $tariffs = ServiceToCategory::find()->all();
 
-        if (Model::loadMultiple($tariffs, Yii::$app->request->post()) && Model::validateMultiple($tariffs)) {
-            foreach ($tariffs as $tariff) {
-                $tariff->save(false);
-            }
-            return $this->redirect('index');
-        }
-
-        return $this->render('index',[
-           'services' => $services,
+        return $this->render('index', [
+            'services' => $services,
             'categories' => $categories,
             'tariffs' => $tariffs,
-            'tariff_model' => $tariff_model,
         ]);
 
     }
@@ -72,10 +57,10 @@ class PriceController extends Controller
     {
         $model = $this->findModel($id);
 
-        $services = ArrayHelper::map(Service::find()->all(),'id','name');
+        $services = ArrayHelper::map(Service::find()->all(), 'id', 'name');
 
-        $categories = ArrayHelper::map(Category::find()->all(),'id','name');
-        
+        $categories = ArrayHelper::map(Category::find()->all(), 'id', 'name');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect('index');
         } else {
@@ -85,6 +70,30 @@ class PriceController extends Controller
                 'categories' => $categories,
             ]);
         }
+    }
+
+    public function actionSaveTariffGrid()
+    {
+        $tariffGrid = yii::$app->request->post('tariffGrid');
+
+        foreach ($tariffGrid as $key => $tariff) {
+            $model = ServiceToCategory::find()
+                ->where([
+                    'service_id' => $tariff['service_id'],
+                    'category_id' => $tariff['category_id']
+                ])
+                ->one();
+            
+            if (!$model) {
+                $model = new ServiceToCategory;
+                $model->service_id = $tariff['service_id'];
+                $model->category_id = $tariff['category_id'];
+            }
+            $model->price = $tariff['price'];
+            $model->max_discount = $tariff['discount'];
+            $model->save();
+        }
+
     }
 
     protected function findModel($id)

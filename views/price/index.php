@@ -7,30 +7,16 @@ $this->title = 'Тарифы';
 $this->params['breadcrumbs'][] = $this->title;
 
 \halumein\servicemini\assets\ServiceAsset::register($this);
-$form = ActiveForm::begin();
-echo '<pre>';
-var_dump($tariffs);
-die;
-//foreach ($tariffs as $index => $tariff) {
-//    echo $form->field($tariff, "[$index]service_id")->label('service');
-//    echo $form->field($tariff, "[$index]category_id")->label('category');
-//    echo $form->field($tariff, "[$index]price")->label('price');
-//    echo $form->field($tariff, "[$index]max_discount")->label('discount');
-//    echo '<hr>';
-//}
-//echo '<input type="submit" name="submit" value="Сохранить" class="btn btn-success" />';
-//ActiveForm::end();
-//die;
+
 ?>
 <div class="price-index">
 
-    <?php $form = ActiveForm::begin(); ?>
-    <table class="table table-hover table-responsive service-prices-table">
+    <table class="table table-hover table-responsive service-prices-table" data-role="tariff-grid">
         <tr>
             <th width="40">ID</th>
             <th width="200">Вид услуги</th>
             <?php foreach ($categories as $category) { ?>
-                <th><?= $category->name; ?></th>
+                <th class="text-center"><?= $category->name; ?></th>
             <?php } ?>
         </tr>
         <?php foreach ($services as $service) { ?>
@@ -38,24 +24,17 @@ die;
                 <td><?= $service->id; ?></td>
                 <td><?= $service->name; ?></td>
                 <?php foreach ($categories as $category) { ?>
-                    <td>
-<!--                        --><?php //ActiveForm::begin(); ?>
-                        <?php
-
-                        $model = new $tariff_model;
-                        echo $form->field($model, 'service_id')->hiddenInput(['value' => $service->id])->label(false);
-                        echo $form->field($model, 'category_id')->hiddenInput(['value' => $category->id])->label(false);
-                        echo $form->field($model, 'price')->textInput();
-                        echo $form->field($model, 'max_discount')->textInput();
-                        echo '<a href="' . Url::toRoute(['update']) . '"><i class="glyphicon glyphicon-pencil"></i></a>';
-//                        ActiveForm::end() ?>
+                    <td data-role="tariff-row">
+                        <div class="form form-inline" data-role="tariff-block" data-category="<?=$category->id ?>" data-service="<?=$service->id ?>">
+                            <input class="form-control" style="width: 40%" type="text" placeholder="Цена" data-role="tariff-price">
+                            <input class="form-control" style="width: 40%" type="text" placeholder="Скидка" data-role="tariff-discount">
+                        </div>
                     </td>
                 <?php } ?>
             </tr>
         <?php } ?>
     </table>
     <p>
-        <input type="submit" name="submit" value="Сохранить" class="btn btn-success"/>
+        <input type="submit" name="submit" data-url="<?= Url::to(['save-tariff-grid']) ?>" data-role="send-grid" value="Сохранить" class="btn btn-success"/>
     </p>
-    <?php ActiveForm::end(); ?>
 </div>

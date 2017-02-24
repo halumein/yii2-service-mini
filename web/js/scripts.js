@@ -5,7 +5,6 @@ $('#service-ident').focus();
 
 usesgraphcrt.servicemini = {
     init: function() {
-        console.log('test');
         if($(document).width() > 1100) {
             $('.arm-right-column').css({'height': screen.height-370, 'width': '300px', 'overflow-x': 'hidden', 'position': 'fixed', 'overflow': 'hidden'});
             $('.service-order').css({'height': screen.height-310, 'width': '315px', 'overflow-y': 'scroll'});
@@ -333,6 +332,3 @@ usesgraphcrt.servicemini = {
 }
 
 usesgraphcrt.servicemini.init();
-/**
- * Created by Patrick on 22.02.2017.
- */

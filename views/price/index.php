@@ -8,24 +8,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
 \halumein\servicemini\assets\ServiceAsset::register($this);
 $form = ActiveForm::begin();
-foreach ($tariffs as $index => $tariff) {
-    echo $form->field($tariff, "[$index]service_id")->label('service');
-    echo $form->field($tariff, "[$index]category_id")->label('category');
-    echo $form->field($tariff, "[$index]price")->label('price');
-    echo $form->field($tariff, "[$index]max_discount")->label('discount');
-    echo '<hr>';
-}
-echo '<input type="submit" name="submit" value="Сохранить" class="btn btn-success" />';
-ActiveForm::end();
+echo '<pre>';
+var_dump($tariffs);
 die;
+//foreach ($tariffs as $index => $tariff) {
+//    echo $form->field($tariff, "[$index]service_id")->label('service');
+//    echo $form->field($tariff, "[$index]category_id")->label('category');
+//    echo $form->field($tariff, "[$index]price")->label('price');
+//    echo $form->field($tariff, "[$index]max_discount")->label('discount');
+//    echo '<hr>';
+//}
+//echo '<input type="submit" name="submit" value="Сохранить" class="btn btn-success" />';
+//ActiveForm::end();
+//die;
 ?>
 <div class="price-index">
 
     <?php $form = ActiveForm::begin(); ?>
-    <!--    <p>-->
-    <!--        <input type="submit" name="submit" value="Сохранить" class="btn btn-success" />-->
-    <!--    </p>-->
-
     <table class="table table-hover table-responsive service-prices-table">
         <tr>
             <th width="40">ID</th>
@@ -40,20 +39,21 @@ die;
                 <td><?= $service->name; ?></td>
                 <?php foreach ($categories as $category) { ?>
                     <td>
-                        <?php ActiveForm::begin(); ?>
-                        <?php echo $form->field($tariffs[$category->id], "[]price")->label('price'); ?>
-                        <input style="width: 35%;" type="text" placeholder="Цена"
-                               name="Prices[<?= $service->id; ?>][<?= $category->id; ?>]['price']" value=""/>
-                        <input style="width: 35%;" placeholder="Cкидка" type="text"
-                               name="Prices[<?= $service->id; ?>][<?= $category->id; ?>]['discount']">
-                        <a href="<?= Url::toRoute(['update']); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
-                        <?php ActiveForm::end() ?>
+<!--                        --><?php //ActiveForm::begin(); ?>
+                        <?php
+
+                        $model = new $tariff_model;
+                        echo $form->field($model, 'service_id')->hiddenInput(['value' => $service->id])->label(false);
+                        echo $form->field($model, 'category_id')->hiddenInput(['value' => $category->id])->label(false);
+                        echo $form->field($model, 'price')->textInput();
+                        echo $form->field($model, 'max_discount')->textInput();
+                        echo '<a href="' . Url::toRoute(['update']) . '"><i class="glyphicon glyphicon-pencil"></i></a>';
+//                        ActiveForm::end() ?>
                     </td>
                 <?php } ?>
             </tr>
         <?php } ?>
     </table>
-
     <p>
         <input type="submit" name="submit" value="Сохранить" class="btn btn-success"/>
     </p>

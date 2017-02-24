@@ -40,12 +40,18 @@ class PriceController extends Controller
 
     public function actionIndex()
     {
+
+        $count = count(Yii::$app->request->post('ServiceToCategory', []));
+        $tariffs = [new ServiceToCategory()];
+        for($i = 1; $i < $count; $i++) {
+            $tariffs[] = new ServiceToCategory();
+        }
+
         $services = Service::find()->all();
         $categories = Category::find()->all();
-        $tariffs = ServiceToCategory::find()->indexBy('category_id')->all();
-        echo "<pre>";
-        var_dump($tariffs);
-        die;
+        $tariffs = ServiceToCategory::find()->indexBy('id')->all();
+        $tariff_model = ServiceToCategory::className();
+
         if (Model::loadMultiple($tariffs, Yii::$app->request->post()) && Model::validateMultiple($tariffs)) {
             foreach ($tariffs as $tariff) {
                 $tariff->save(false);
@@ -57,6 +63,7 @@ class PriceController extends Controller
            'services' => $services,
             'categories' => $categories,
             'tariffs' => $tariffs,
+            'tariff_model' => $tariff_model,
         ]);
 
     }

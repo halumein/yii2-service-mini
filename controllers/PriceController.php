@@ -75,7 +75,6 @@ class PriceController extends Controller
     public function actionSaveTariffGrid()
     {
         $tariffGrid = yii::$app->request->post('tariffGrid');
-
         foreach ($tariffGrid as $key => $tariff) {
             $model = ServiceToCategory::find()
                 ->where([
@@ -93,6 +92,7 @@ class PriceController extends Controller
             $model->max_discount = $tariff['discount'];
             $model->save();
         }
+
 
     }
 

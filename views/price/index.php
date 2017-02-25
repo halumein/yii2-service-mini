@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
+use halumein\servicemini\helpers\RenderTariffBlockHelper;
 
 $this->title = 'Тарифы';
 $this->params['breadcrumbs'][] = $this->title;
@@ -25,12 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 <td><?= $service->name; ?></td>
                 <?php foreach ($categories as $category) { ?>
                     <td data-role="tariff-row">
+                        <?php if ($tariffBlock = RenderTariffBlockHelper::renderBlock($service->id,$category->id)) {
+                            echo $tariffBlock;
+                        } else { ?>
                         <div class="form form-inline" data-role="tariff-block" data-category="<?=$category->id ?>" data-service="<?=$service->id ?>">
                             <input class="form-control" style="width: 40%" type="text" placeholder="Цена" data-role="tariff-price">
                             <input class="form-control" style="width: 40%" type="text" placeholder="Скидка" data-role="tariff-discount">
+                            <a href="<?=Url::to(['service/update','id' => $service->id]) ?>"><i class="glyphicon glyphicon-pencil"></i></a>
                         </div>
                     </td>
-                <?php } ?>
+                <?php }
+                } ?>
             </tr>
         <?php } ?>
     </table>

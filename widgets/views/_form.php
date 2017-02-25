@@ -10,9 +10,9 @@ use yii\bootstrap\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'service_id')->dropDownList($services) ?>
+    <?= $form->field($model, 'service_id')->textInput(['value' => $service['id'], 'readonly' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->dropDownList($categories) ?>
+    <?= $form->field($model, 'category_id')->textInput(['value' => $category['id'], 'readonly' => true]) ?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 

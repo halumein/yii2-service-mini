@@ -2,6 +2,7 @@
 namespace halumein\servicemini\helpers;
 
 use yii\helpers\Url;
+use halumein\servicemini\widgets\editTariffModal;
 use halumein\servicemini\models\ServiceToCategory as Tariff;
 
 
@@ -28,7 +29,8 @@ class RenderTariffBlockHelper
                              placeholder="Скидка" 
                              data-role="tariff-discount"
                              value="'.$tariff->max_discount.'">';
-            $tariffBlock .= ' <a href="'.Url::to(['update','id' => $tariff->id]).'"><i class="glyphicon glyphicon-pencil"></i></a>';
+
+            $tariffBlock .= ' '.editTariffModal::widget(['tariffId' => $tariff->id, 'serviceId' => $tariff->service_id, 'categoryId' => $tariff->category_id]);
 
             $tariffBlock .= '</div>';
             return $tariffBlock;

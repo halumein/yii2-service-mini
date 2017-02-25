@@ -7,8 +7,8 @@
             <div class="modal-body">
                 <?= $this->render('_form', [
                     'model' => $model,
-                    'services' => $services,
-                    'categories' => $categories,
+                    'service' => $service,
+                    'category' => $category,
                 ]) ?>
             </div>
         </div>

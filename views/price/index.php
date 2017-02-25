@@ -32,7 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="form form-inline" data-role="tariff-block" data-category="<?=$category->id ?>" data-service="<?=$service->id ?>">
                             <input class="form-control" style="width: 40%" type="text" placeholder="Цена" data-role="tariff-price">
                             <input class="form-control" style="width: 40%" type="text" placeholder="Скидка" data-role="tariff-discount">
-                            <a href="<?=Url::to(['service/update','id' => $service->id]) ?>"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <a href="<?=Url::to(['create']) ?>"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <?= halumein\servicemini\widgets\editTariffModal::widget() ?>
                         </div>
                     </td>
                 <?php }

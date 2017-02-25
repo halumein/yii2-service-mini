@@ -16,20 +16,19 @@ class RenderTariffBlockHelper
                             data-role="tariff-block"
                             data-category="'.$tariff->category_id.'"
                             data-service="'.$tariff->service_id.'">';
-            $tariffBlock .= '<input class="form-control" 
+            $tariffBlock .= ' <input class="form-control" 
                              style="width: 40%" 
                              type="text"
                              placeholder="Цена"
                              data-role="tariff-price"
                              value="'.$tariff->price.'">';
-            $tariffBlock .= '<input class="form-control"
+            $tariffBlock .= ' <input class="form-control"
                              style="width: 40%"
                              type="text" 
                              placeholder="Скидка" 
                              data-role="tariff-discount"
                              value="'.$tariff->max_discount.'">';
-            $tariffBlock .= '<a href="'.Url::to(['service/update','id' => $tariff->service_id]) .'">
-                            <i class="glyphicon glyphicon-pencil"></i></a>';
+            $tariffBlock .= ' <a href="'.Url::to(['update','id' => $tariff->id]).'"><i class="glyphicon glyphicon-pencil"></i></a>';
 
             $tariffBlock .= '</div>';
             return $tariffBlock;

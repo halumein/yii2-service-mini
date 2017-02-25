@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 use halumein\servicemini\models\Service;
 use halumein\servicemini\models\Category;
-use halumein\servicemini\models\ServiceToCategory;
+use halumein\servicemini\models\ServiceToCategory as Tariff;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -43,7 +43,7 @@ class PriceController extends Controller
 
         $services = Service::find()->all();
         $categories = Category::find()->all();
-        $tariffs = ServiceToCategory::find()->all();
+        $tariffs = Tariff::find()->all();
 
         return $this->render('index', [
             'services' => $services,
@@ -51,6 +51,26 @@ class PriceController extends Controller
             'tariffs' => $tariffs,
         ]);
 
+    }
+
+    public function actionCreate()
+    {
+
+        $model = new Tariff;
+
+        $services = ArrayHelper::map(Service::find()->all(), 'id', 'name');
+
+        $categories = ArrayHelper::map(Category::find()->all(), 'id', 'name');
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('index');
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'services' => $services,
+                'categories' => $categories,
+            ]);
+        }
     }
 
     public function actionUpdate($id)
@@ -76,7 +96,7 @@ class PriceController extends Controller
     {
         $tariffGrid = yii::$app->request->post('tariffGrid');
         foreach ($tariffGrid as $key => $tariff) {
-            $model = ServiceToCategory::find()
+            $model = Tariff::find()
                 ->where([
                     'service_id' => $tariff['service_id'],
                     'category_id' => $tariff['category_id']
@@ -84,7 +104,7 @@ class PriceController extends Controller
                 ->one();
             
             if (!$model) {
-                $model = new ServiceToCategory;
+                $model = new Tariff;
                 $model->service_id = $tariff['service_id'];
                 $model->category_id = $tariff['category_id'];
             }
@@ -93,12 +113,17 @@ class PriceController extends Controller
             $model->save();
         }
 
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        return [
+          'status' => 'success',
+        ];
 
     }
 
     protected function findModel($id)
     {
-        if (($model = ServiceToCategory::findOne($id)) !== null) {
+        if (($model = Tariff::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

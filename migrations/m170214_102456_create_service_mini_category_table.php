@@ -17,7 +17,7 @@ class m170214_102456_create_service_mini_category_table extends Migration
         $this->createTable('service_mini_category', [
             'id' => $this->primaryKey(11),
             'name' => $this->string(255)->notNull(),
-            'parent_category' => $this->integer(11),
+            'parent_id' => $this->integer(11),
             'sort' => $this->integer(11),
         ],$tableOptions);
     }

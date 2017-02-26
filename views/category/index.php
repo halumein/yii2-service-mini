@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'parent.name',
                     'filter' => Html::activeDropDownList(
                         $searchModel,
-                        'parent_category',
+                        'parent_id',
                         $categories,
                         ['class' => 'form-control', 'prompt' => 'Родительская категория']
                     ),
@@ -49,5 +49,5 @@ $this->params['breadcrumbs'][] = $this->title;
         $categoriesList = \pistol88\tree\widgets\Tree::widget(['model' => new \halumein\servicemini\models\Category(), 'viewUrl' => null]);
     }
     echo $categoriesList;
-    ?>?>
+    ?>
 </div>

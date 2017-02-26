@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'parent_category')->dropdownList($categories); ?>
+    <?= $form->field($model, 'parent_id')->dropdownList($categories); ?>
 
     <?= $form->field($model, 'sort')->textInput()->hint('Чем выше приоритет, тем выше элемент среди других в общем списке.'); ?>
 

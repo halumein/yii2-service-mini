@@ -9,7 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
- * @property integer $parent_category
+ * @property integer $parent_id
  * @property integer $sort
  */
 class Category extends \yii\db\ActiveRecord
@@ -39,7 +39,7 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['parent_category', 'sort'], 'integer'],
+            [['parent_id', 'sort'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -52,14 +52,14 @@ class Category extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название',
-            'parent_category' => 'Родительская категория',
+            'parent_id' => 'Родительская категория',
             'sort' => 'Приоритет',
         ];
     }
 
     public function getChilds()
     {
-        return $this->hasMany(self::className(), ['parent_category' => 'id']);
+        return $this->hasMany(self::className(), ['parent_id' => 'id']);
     }
 
     public function getTariffsByCategory()
@@ -69,22 +69,22 @@ class Category extends \yii\db\ActiveRecord
 
     public function getCategory()
     {
-        return $this->hasOne(self::className(), ['id' => 'parent_category']);
+        return $this->hasOne(self::className(), ['id' => 'parent_id']);
     }
 
     public function getParent()
     {
-        return $this->hasOne(self::className(), ['id' => 'parent_category']);
+        return $this->hasOne(self::className(), ['id' => 'parent_id']);
     }
 
-    public static function buildTree($parent_category = null)
+    public static function buildTree($parent_id = null)
     {
         $return = [];
 
-        if(empty($parent_category)) {
-            $categories = Category::find()->where('parent_category = 0 OR parent_category is null')->orderBy('sort DESC')->asArray()->all();
+        if(empty($parent_id)) {
+            $categories = Category::find()->where('parent_id = 0 OR parent_id is null')->orderBy('sort DESC')->asArray()->all();
         } else {
-            $categories = Category::find()->where(['parent_category' => $parent_category])->orderBy('sort DESC')->asArray()->all();
+            $categories = Category::find()->where(['parent_id' => $parent_id])->orderBy('sort DESC')->asArray()->all();
         }
 
         foreach($categories as $level1) {
@@ -103,9 +103,9 @@ class Category extends \yii\db\ActiveRecord
         $level++;
 
         if(empty($id)) {
-            $categories = Category::find()->where('parent_category = 0 OR parent_category is null')->orderBy('sort DESC')->asArray()->all();
+            $categories = Category::find()->where('parent_id = 0 OR parent_id is null')->orderBy('sort DESC')->asArray()->all();
         } else {
-            $categories = Category::find()->where(['parent_category' => $id])->orderBy('sort DESC')->asArray()->all();
+            $categories = Category::find()->where(['parent_id' => $id])->orderBy('sort DESC')->asArray()->all();
         }
 
         foreach($categories as $category) {

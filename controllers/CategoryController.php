@@ -58,11 +58,11 @@ class CategoryController extends Controller
     public function actionCreate()
     {
         $model = new Category();
-        $categories = Category::find()->where("id != :id AND (parent_category = 0 OR parent_category IS NULL)", [':id' => (int)$model->id])->all();
+        $categories = Category::find()->where("id != :id AND (parent_id = 0 OR parent_id IS NULL)", [':id' => (int)$model->id])->all();
         $categories = ArrayHelper::map($categories, 'id', 'name');
         $categories['0'] = 'Нет';
-        if(!$model->parent_category) {
-            $model->parent_category = 0;
+        if(!$model->parent_id) {
+            $model->parent_id = 0;
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect('index');
@@ -84,11 +84,11 @@ class CategoryController extends Controller
     {
         $model = $this->findModel($id);
 
-        $categories = Category::find()->where("id != :id AND (parent_category = 0 OR parent_category IS NULL)", [':id' => (int)$model->id])->all();
+        $categories = Category::find()->where("id != :id AND (parent_id = 0 OR parent_id IS NULL)", [':id' => (int)$model->id])->all();
         $categories = ArrayHelper::map($categories, 'id', 'name');
         $categories['0'] = 'Нет';
-        if(!$model->parent_category) {
-            $model->parent_category = 0;
+        if(!$model->parent_id) {
+            $model->parent_id = 0;
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

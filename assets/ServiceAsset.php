@@ -11,7 +11,6 @@ class ServiceAsset extends AssetBundle
     ];
 
     public $js = [
-        'js/scripts.js',
         'js/tariff_grid.js',
     ];
 

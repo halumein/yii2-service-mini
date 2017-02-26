@@ -7,12 +7,37 @@ usesgraphcrt.tariffGrid = {
         csrfToken = $('meta[name=csrf-token]').attr("content");
         $tariffGrid = $('[data-role=tariff-grid]');
         $btnSubmit = $('[data-role=send-grid]');
+        $tariffModal = $('[data-role=tariff-modal]');
+        $tariffModalShowBtn = $('[data-role=tariff-modal-btn]');
+
+        $(document).on('mouseenter','.service-prices-table td', this.renderCross);
+
+        $(document).on('mouseleave','.service-prices-table td',function () {
+            $('.service-prices-table td').removeClass('hover');
+        });
+
+        $tariffModalShowBtn.on('click',function(){
+            alert('пиу!');
+            url = $(this).data('url');
+        });
 
         $btnSubmit.on('click', function () {
             self = this;
             tariffGrid = usesgraphcrt.tariffGrid.pickingGrid();
             usesgraphcrt.tariffGrid.sendGrid($(self).data('url'),tariffGrid);
         });
+    },
+    
+    renderCross: function () {
+        var tr = $(this).parent('tr');
+        var Col = tr.find('td').index(this);
+
+        tr.find('td').addClass('hover');
+        $('.service-prices-table tr').find('td:eq(' + Col + ')').addClass('hover');
+    },
+
+    loadModal: function () {
+        
     },
 
     pickingGrid: function () {

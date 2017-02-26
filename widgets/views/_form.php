@@ -10,10 +10,18 @@ use yii\bootstrap\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'service_id')->textInput(['value' => $service['id'], 'readonly' => true]) ?>
+    <?= $form->field($model, 'service_id')->hiddenInput(['value' => $service['id'], 'readonly' => true])->label(false) ?>
 
-    <?= $form->field($model, 'category_id')->textInput(['value' => $category['id'], 'readonly' => true]) ?>
-
+    <?= $form->field($model, 'category_id')->hiddenInput(['value' => $category['id'], 'readonly' => true])->label(false) ?>
+    <div class="form-group">
+        <label for="">Услуга</label>
+        <input type="text" class="form-control" value="<?= $service['name'] ?>" disabled>
+    </div>
+    <div class="form-group">
+        <label for="">Категория</label>
+        <input type="text" class="form-control" value="<?= $category['name'] ?>" disabled>
+    </div>
+    
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'max_discount')->textInput(['maxlength' => true]) ?>

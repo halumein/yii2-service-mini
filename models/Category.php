@@ -62,6 +62,11 @@ class Category extends \yii\db\ActiveRecord
         return $this->hasMany(self::className(), ['parent_category' => 'id']);
     }
 
+    public function getTariffsByCategory()
+    {
+        return $this->hasMany(ServiceToCategory::className(),['category_id' => 'id']);
+    }
+
     public function getCategory()
     {
         return $this->hasOne(self::className(), ['id' => 'parent_category']);

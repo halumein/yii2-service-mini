@@ -3,6 +3,7 @@
 namespace halumein\servicemini\models;
 
 use Yii;
+use halumein\servicemini\models\Service;
 
 /**
  * This is the model class for table "service_mini_service_to_category".
@@ -50,5 +51,10 @@ class ServiceToCategory extends \yii\db\ActiveRecord
             'max_discount' => 'Максимальная скидка',
             'description' => 'Описание',
         ];
+    }
+
+    public function getService()
+    {
+        return $this->hasOne(Service::className(), ['id' => 'service_id']);
     }
 }

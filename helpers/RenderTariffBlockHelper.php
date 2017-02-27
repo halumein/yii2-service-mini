@@ -15,7 +15,8 @@ class RenderTariffBlockHelper
             $tariffBlock = '<div class="form form-inline" 
                             data-role="tariff-block"
                             data-category="'.$tariff->category_id.'"
-                            data-service="'.$tariff->service_id.'">';
+                            data-service="'.$tariff->service_id.'"
+                            data-status="">';
             $tariffBlock .= ' <input class="form-control" 
                              style="width: 40%" 
                              type="text"

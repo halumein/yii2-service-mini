@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         echo $tariffBlock;
                     } else { ?>
                         <div class="form form-inline" data-role="tariff-block" data-category="<?= $category->id ?>"
-                             data-service="<?= $service->id ?>">
+                             data-service="<?= $service->id ?>" data-status="not-changed">
                             <input class="form-control" style="width: 40%" type="text" placeholder="Цена"
                                    data-role="tariff-price">
                             <input class="form-control" style="width: 40%" type="text" placeholder="Скидка"
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 </div>
 <div class="tariff-modal modal fade" id="tariffModal" tabindex="-1" role="dialog" data-role="tariff-modal">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span

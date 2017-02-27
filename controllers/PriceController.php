@@ -113,6 +113,9 @@ class PriceController extends Controller
 
     public function actionSaveTariffGrid()
     {
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
         $tariffGrid = yii::$app->request->post('tariffGrid');
         foreach ($tariffGrid as $key => $tariff) {
             $model = Tariff::find()
@@ -129,10 +132,12 @@ class PriceController extends Controller
             }
             $model->price = $tariff['price'];
             $model->max_discount = $tariff['discount'];
-            $model->save();
+            if  (!$model->save()) {
+                return [
+                    'status' => 'error'
+                ];
+            }
         }
-
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         return [
             'status' => 'success',

@@ -8,6 +8,7 @@ usesgraphcrt.tariffGrid = {
         $tariffGrid = $('[data-role=tariff-grid]');
         $btnSubmit = $('[data-role=send-grid]');
         $tariffModal = $('[data-role=tariff-modal]');
+        $tariffModalContent = $('[data-role=tariff-modal-content]');
         $tariffModalShowBtn = $('[data-role=tariff-modal-btn]');
 
         $(document).on('mouseenter','.service-prices-table td', this.renderCross);
@@ -17,8 +18,12 @@ usesgraphcrt.tariffGrid = {
         });
 
         $tariffModalShowBtn.on('click',function(){
-            alert('пиу!');
             url = $(this).data('url');
+            data = {
+                'service_id': $(this).closest('[data-role=tariff-block]').data('service'),
+                'category_id': $(this).closest('[data-role=tariff-block]').data('category')
+            };
+            usesgraphcrt.tariffGrid.loadModal(url,data);
         });
 
         $btnSubmit.on('click', function () {
@@ -36,8 +41,9 @@ usesgraphcrt.tariffGrid = {
         $('.service-prices-table tr').find('td:eq(' + Col + ')').addClass('hover');
     },
 
-    loadModal: function () {
-        
+    loadModal: function (url,data) {
+        $tariffModalContent.load(url,data);
+        $tariffModal.modal('toggle');
     },
 
     pickingGrid: function () {

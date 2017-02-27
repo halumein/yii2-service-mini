@@ -1,14 +1,15 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 
- /* @var $model halumein\servicemini\models\ServiceToCategory */
+/* @var $model halumein\servicemini\models\ServiceToCategory */
 
 ?>
 
 <div class="price-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['action' => ($model->isNewRecord) ? Url::to(['create']) : Url::to(['update', 'id' => $model->id])]); ?>
 
     <?= $form->field($model, 'service_id')->hiddenInput(['value' => $service['id'], 'readonly' => true])->label(false) ?>
 
@@ -21,7 +22,7 @@ use yii\bootstrap\ActiveForm;
         <label for="">Категория</label>
         <input type="text" class="form-control" value="<?= $category['name'] ?>" disabled>
     </div>
-    
+
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'max_discount')->textInput(['maxlength' => true]) ?>

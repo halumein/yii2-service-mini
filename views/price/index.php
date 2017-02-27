@@ -32,8 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="form form-inline" data-role="tariff-block" data-category="<?=$category->id ?>" data-service="<?=$service->id ?>">
                             <input class="form-control" style="width: 40%" type="text" placeholder="Цена" data-role="tariff-price">
                             <input class="form-control" style="width: 40%" type="text" placeholder="Скидка" data-role="tariff-discount">
-                            <a class="glyphicon glyphicon-pencil" data-role="tariff-modal-btn" data-url="<?= Url::to(['create']) ?>"></a>
-<!--                            --><?//= halumein\servicemini\widgets\editTariffModal::widget(['serviceId' => $service->id, 'categoryId' => $category->id]) ?>
+                            <a class="glyphicon glyphicon-pencil" data-role="tariff-modal-btn" data-url="<?= Url::to(['ajax-model-load']) ?>"></a>
                         </div>
                     </td>
                 <?php }
@@ -44,4 +43,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <input type="submit" name="submit" data-url="<?= Url::to(['save-tariff-grid']) ?>" data-role="send-grid" value="Сохранить" class="btn btn-success"/>
     </p>
+</div>
+<div class="tariff-modal modal fade" id="tariffModal" tabindex="-1" role="dialog" data-role="tariff-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">Тариф</h4>
+            </div>
+            <div class="modal-body" data-role="tariff-modal-content">
+                
+            </div>
+        </div>
+    </div>
 </div>

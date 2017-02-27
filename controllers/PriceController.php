@@ -92,6 +92,25 @@ class PriceController extends Controller
         }
     }
 
+    public function actionAjaxModelLoad()
+    {
+        $data = yii::$app->request->post();
+        
+        if (!$model = Tariff::find()->where(['service_id' => $data['service_id'], 'category_id' => $data['category_id']])->one()) {
+            $model = new Tariff;
+        }
+
+        $service = Service::findOne($data['service_id']);
+
+        $category = Category::findOne($data['category_id']);
+        
+        return $this->renderAjax('_modal-content',[
+            'model' => $model,
+            'service' => $service,
+            'category' => $category,
+        ]);
+    }
+
     public function actionSaveTariffGrid()
     {
         $tariffGrid = yii::$app->request->post('tariffGrid');

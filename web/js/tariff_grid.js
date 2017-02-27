@@ -10,6 +10,7 @@ usesgraphcrt.tariffGrid = {
         $tariffModal = $('[data-role=tariff-modal]');
         $tariffModalContent = $('[data-role=tariff-modal-content]');
         $tariffModalShowBtn = $('[data-role=tariff-modal-btn]');
+        $alertBlock = $('[data-role=alert]');
 
         $(document).on('mouseenter','.service-prices-table td', this.renderCross);
 
@@ -69,9 +70,17 @@ usesgraphcrt.tariffGrid = {
             data: {tariffGrid:data,_csrf : csrfToken},
             success: function (response) {
                 if (response.status == 'success') {
-                    alert('Сохранилось!');
+                    $alertBlock.addClass('success').fadeIn();
+                    $alertBlock.html('Данные сохранены!');
+                    console.log(response);
+                } else {
+                    $alertBlock.addClass('error');
+                    $alertBlock.html('Что-то пошло не так :(');
                     console.log(response);
                 }
+                setTimeout(function () {
+                    $alertBlock.fadeOut();
+                },2000);
             }
         });
     }

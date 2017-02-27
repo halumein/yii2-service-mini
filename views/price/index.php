@@ -26,32 +26,42 @@ $this->params['breadcrumbs'][] = $this->title;
                 <td><?= $service->name; ?></td>
                 <?php foreach ($categories as $category) { ?>
                     <td data-role="tariff-row">
-                        <?php if ($tariffBlock = RenderTariffBlockHelper::renderBlock($service->id,$category->id)) {
-                            echo $tariffBlock;
-                        } else { ?>
-                        <div class="form form-inline" data-role="tariff-block" data-category="<?=$category->id ?>" data-service="<?=$service->id ?>">
-                            <input class="form-control" style="width: 40%" type="text" placeholder="Цена" data-role="tariff-price">
-                            <input class="form-control" style="width: 40%" type="text" placeholder="Скидка" data-role="tariff-discount">
-                            <a class="glyphicon glyphicon-pencil" data-role="tariff-modal-btn" data-url="<?= Url::to(['ajax-model-load']) ?>"></a>
+                    <?php if ($tariffBlock = RenderTariffBlockHelper::renderBlock($service->id, $category->id)) {
+                        echo $tariffBlock;
+                    } else { ?>
+                        <div class="form form-inline" data-role="tariff-block" data-category="<?= $category->id ?>"
+                             data-service="<?= $service->id ?>">
+                            <input class="form-control" style="width: 40%" type="text" placeholder="Цена"
+                                   data-role="tariff-price">
+                            <input class="form-control" style="width: 40%" type="text" placeholder="Скидка"
+                                   data-role="tariff-discount">
+                            <a data-role="tariff-modal-btn" data-url="<?= Url::to(['ajax-model-load']) ?>"><i
+                                    class="glyphicon glyphicon-pencil"></i></a>
                         </div>
-                    </td>
-                <?php }
+                        </td>
+                    <?php }
                 } ?>
             </tr>
         <?php } ?>
     </table>
     <p>
-        <input type="submit" name="submit" data-url="<?= Url::to(['save-tariff-grid']) ?>" data-role="send-grid" value="Сохранить" class="btn btn-success"/>
+        <input type="submit" name="submit" data-url="<?= Url::to(['save-tariff-grid']) ?>" data-role="send-grid"
+               value="Сохранить" class="btn btn-success"/>
+           <span style="display: none" data-role="alert">
+               
+           </span>
     </p>
 </div>
 <div class="tariff-modal modal fade" id="tariffModal" tabindex="-1" role="dialog" data-role="tariff-modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">Тариф</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Тариф</h4>
             </div>
             <div class="modal-body" data-role="tariff-modal-content">
-                
+
             </div>
         </div>
     </div>

@@ -27,6 +27,18 @@
     margin: 1px;
 }
 
+.service-prices-table .glyphicon:hover {
+    cursor: pointer;
+}
+
 .service-prices-table td.price input {
     width: 40px;
+}
+
+.success {
+    color: #26A65B;
+}
+
+.error {
+    color: #D91E18;
 }

@@ -95,7 +95,7 @@ class PriceController extends Controller
     public function actionAjaxModelLoad()
     {
         $data = yii::$app->request->post();
-        
+
         if (!$model = Tariff::find()->where(['service_id' => $data['service_id'], 'category_id' => $data['category_id']])->one()) {
             $model = new Tariff;
         }
@@ -103,8 +103,8 @@ class PriceController extends Controller
         $service = Service::findOne($data['service_id']);
 
         $category = Category::findOne($data['category_id']);
-        
-        return $this->renderAjax('_modal-content',[
+
+        return $this->renderAjax('_modal-content', [
             'model' => $model,
             'service' => $service,
             'category' => $category,
@@ -121,7 +121,7 @@ class PriceController extends Controller
                     'category_id' => $tariff['category_id']
                 ])
                 ->one();
-            
+
             if (!$model) {
                 $model = new Tariff;
                 $model->service_id = $tariff['service_id'];
@@ -135,7 +135,7 @@ class PriceController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         return [
-          'status' => 'success',
+            'status' => 'success',
         ];
 
     }

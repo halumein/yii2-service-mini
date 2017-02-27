@@ -29,7 +29,7 @@ class RenderTariffBlockHelper
                              data-role="tariff-discount"
                              value="'.$tariff->max_discount.'">';
 
-            $tariffBlock .= ' <a class="glyphicon glyphicon-pencil" data-role="tariff-modal-btn" data-url="'.Url::to(['ajax-model-load']).'"></a>';
+            $tariffBlock .= ' <a data-role="tariff-modal-btn" data-url="'.Url::to(['ajax-model-load']).'"><i class="glyphicon glyphicon-pencil"></i></a>';
 
             $tariffBlock .= '</div>';
             return $tariffBlock;

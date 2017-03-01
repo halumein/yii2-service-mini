@@ -23,7 +23,7 @@ use yii\bootstrap\ActiveForm;
         <input type="text" class="form-control" value="<?= $category['name'] ?>" disabled>
     </div>
 
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'price')->textInput(['maxlength' => true,'required' => true]) ?>
 
     <?= $form->field($model, 'max_discount')->textInput(['maxlength' => true]) ?>
 

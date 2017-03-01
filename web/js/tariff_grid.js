@@ -8,8 +8,6 @@ usesgraphcrt.tariffGrid = {
         $tariffGrid = $('[data-role=tariff-grid]');
         $btnSubmit = $('[data-role=send-grid]');
         $tariffModal = $('[data-role=tariff-modal]');
-        $tariffPrice = $('[data-role=tariff-price]');
-        $tariffDiscount = $('[data-role=tariff-discount]');
         $tariffModalContent = $('[data-role=tariff-modal-content]');
         $tariffModalShowBtn = $('[data-role=tariff-modal-btn]');
         $alertBlock = $('[data-role=alert]');
@@ -18,18 +16,6 @@ usesgraphcrt.tariffGrid = {
 
         $(document).on('mouseleave', '.service-prices-table td', function () {
             $('.service-prices-table td').removeClass('hover');
-        });
-
-        $tariffDiscount.change(function () {
-            self = this;
-            $block = $(self).closest('[data-role=tariff-block]');
-            usesgraphcrt.tariffGrid.tariffBlockChangeStatus($block);
-        });
-
-        $tariffPrice.change(function () {
-            self = this;
-            $block = $(self).closest('[data-role=tariff-block]');
-            usesgraphcrt.tariffGrid.tariffBlockChangeStatus($block);
         });
 
         $tariffModalShowBtn.on('click', function () {
@@ -48,10 +34,6 @@ usesgraphcrt.tariffGrid = {
         });
     },
 
-    tariffBlockChangeStatus: function ($block) {
-        $block.data('status', 'changed').attr('data-status', 'changed');
-    },
-
     renderCross: function () {
         var tr = $(this).parent('tr');
         var Col = tr.find('td').index(this);
@@ -68,7 +50,9 @@ usesgraphcrt.tariffGrid = {
     pickingGrid: function () {
         var tariffGrid = {};
         $('[data-role=tariff-grid]').find('[data-role=tariff-row]').each(function ($key, $value) {
-            if ($($value).find('[data-role=tariff-block]').data('status') == 'changed') {
+            if ($($value).find('[data-role=tariff-discount]').val() != $($value).find('[data-role=tariff-discount]').data('discount')
+                || $($value).find('[data-role=tariff-price]').val() != $($value).find('[data-role=tariff-price]').data('price')) {
+                
                 discount = $($value).find('[data-role=tariff-discount]').val();
                 price = $($value).find('[data-role=tariff-price]').val();
                 if (discount == '') {

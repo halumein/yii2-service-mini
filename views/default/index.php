@@ -10,19 +10,19 @@ use yii\helpers\Url;
         <th>Params</th>
         <th>Description</th>
         <tr>
-            <td>test</td>
-            <td>test</td>
-            <td><a href="<?= Url::toRoute(['/service/service/index']) ?>">Услуги</a></td>
+            <td><a href="<?= Url::toRoute(['/service/service/index']) ?>"><span>/service/service (Услуги)</span></a></td>
+            <td>[ ]</td>
+            <td>Всё, что связано с предоставляемыми услугами (создание, добавление, редактирование, удаление).</td>
         </tr>
         <tr>
-            <td>test</td>
-            <td>test</td>
-            <td><a href="<?= Url::toRoute(['/service/category/index']) ?>">Категории</a></td>
+            <td><a href="<?= Url::toRoute(['/service/category/index']) ?>"><span>/service/category (Категории)</span></a></td>
+            <td>[ ]</td>
+            <td>Всё, что связано с категориями предоставляемых услуг (создание, добавление, редактирование, удаление).</td>
         </tr>
         <tr>
-            <td>test</td>
-            <td>test</td>
-            <td><a href="<?= Url::toRoute(['/service/price/index']) ?>">Тарифы</a></td>
+            <td><a href="<?= Url::toRoute(['/service/price/index']) ?>"><span>/service/price (Тарифы)</span></a></td>
+            <td>[ ]</td>
+            <td>Сводная таблица категорий и услуг, с возможностью заполнения цены и максимальной скидки на конкретную услугу, в конкретной категории.</td>
         </tr>
     </table>
 

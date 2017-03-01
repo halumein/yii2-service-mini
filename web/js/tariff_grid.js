@@ -7,6 +7,8 @@ usesgraphcrt.tariffGrid = {
         csrfToken = $('meta[name=csrf-token]').attr("content");
         $tariffGrid = $('[data-role=tariff-grid]');
         $btnSubmit = $('[data-role=send-grid]');
+        $servicesRow = $('[data-role=service-row]');
+        $categoriesRow = $('[data-role=category-row]');
         $tariffInput = $('[data-role=tariff-price],[data-role=tariff-discount]');
         $tariffModal = $('[data-role=tariff-modal]');
         $tariffModalContent = $('[data-role=tariff-modal-content]');
@@ -86,7 +88,7 @@ usesgraphcrt.tariffGrid = {
         $('[data-role=tariff-grid]').find('[data-role=tariff-row]').each(function ($key, $value) {
             if ($($value).find('[data-role=tariff-discount]').val() != $($value).find('[data-role=tariff-discount]').data('discount')
                 || $($value).find('[data-role=tariff-price]').val() != $($value).find('[data-role=tariff-price]').data('price')) {
-                
+
                 discount = $($value).find('[data-role=tariff-discount]').val();
                 price = $($value).find('[data-role=tariff-price]').val();
                 if (discount == '') {
@@ -125,8 +127,23 @@ usesgraphcrt.tariffGrid = {
 
             }
         });
+    },
+
+    eqval: function () {
+
+        $.each($servicesRow,function ($key,$value) {
+            if ($($value).height() > $categoriesRow.eq($key).height()) {
+                $categoriesRow.eq($key).height($($value).height());
+            }
+        });
+
     }
 
 };
 
-usesgraphcrt.tariffGrid.init();
+
+$(function() {
+    usesgraphcrt.tariffGrid.init();
+
+    usesgraphcrt.tariffGrid.eqval();
+});

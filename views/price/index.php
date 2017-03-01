@@ -13,8 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="price-index">
         <div class="col-md-12">
             <div class="row">
-                <div class="tariff-grid-left-column col-md-2">
-                    <table class="table table-hover table-responsive">
+                <div class="tariff-grid-left-column col-md-4" style="width: 20%">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
                             <th style="width: 25px;">id</th>
@@ -23,16 +23,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         </thead>
                         <tbody>
                         <?php foreach ($services as $service) { ?>
-                            <tr>
+                            <tr data-role="service-row">
                                 <td style="width: 25px;"><?= $service->id; ?></td>
-                                <td><?= $service->name; ?></td>
+                                <td style="height: 51px;"><?= $service->name; ?></td>
                             </tr>
                         <?php } ?>
                         </tbody>
                     </table>
                 </div>
-                <div class="tariff-grid-right-column col-md-4">
-                    <table class="table table-striped service-prices-table" data-role="tariff-grid">
+                <div class="tariff-grid-right-column">
+                    <table class="table service-prices-table" data-role="tariff-grid">
                         <thead>
                         <tr>
                             <?php foreach ($categories as $category) { ?>
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </thead>
                         <tbody>
                         <?php foreach ($services as $service) { ?>
-                            <tr>
+                            <tr data-role="category-row">
                                 <?php foreach ($categories as $category) { ?>
                                     <td data-role="tariff-row">
                                     <?php if ($tariffBlock = RenderTariffBlockHelper::renderBlock($service->id, $category->id)) {

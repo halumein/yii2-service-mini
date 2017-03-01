@@ -12,7 +12,7 @@ class RenderTariffBlockHelper
         $tariff = Tariff::find()->where(['service_id' => $serviceId, 'category_id' => $categoryId])->one();
 
         if ($tariff) {
-            $tariffBlock = '<div class="form form-inline" 
+            $tariffBlock = '<div class="tariff-column form-inline" 
                             data-role="tariff-block"
                             data-category="' . $tariff->category_id . '"
                             data-service="' . $tariff->service_id . '">';

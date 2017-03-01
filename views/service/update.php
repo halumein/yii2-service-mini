@@ -7,7 +7,6 @@ use yii\helpers\Html;
 
 $this->title = 'Редактирование услуги: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Услуги', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="mini-service-update">

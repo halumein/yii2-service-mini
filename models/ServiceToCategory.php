@@ -4,6 +4,7 @@ namespace halumein\servicemini\models;
 
 use Yii;
 use halumein\servicemini\models\Service;
+use halumein\servicemini\models\Category;
 
 /**
  * This is the model class for table "service_mini_service_to_category".
@@ -56,5 +57,10 @@ class ServiceToCategory extends \yii\db\ActiveRecord
     public function getService()
     {
         return $this->hasOne(Service::className(), ['id' => 'service_id']);
+    }
+
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 }

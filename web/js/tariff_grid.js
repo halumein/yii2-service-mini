@@ -41,19 +41,6 @@ usesgraphcrt.tariffGrid = {
             }
         });
 
-        $tariffInput.keyup(function (e) {
-            var income = +$paymentInput.val();
-            if (income > paymentCost) {
-                $paymentChange.html(income - paymentCost);
-            } else {
-                $paymentChange.html(0);
-            }
-
-            if (e.keyCode == 13) {
-                halumein.paymentForm.sendData(e);
-            }
-        });
-
         $tariffModalShowBtn.on('click', function () {
             url = $(this).data('url');
             data = {
@@ -66,8 +53,23 @@ usesgraphcrt.tariffGrid = {
         $btnSubmit.on('click', function () {
             self = this;
             tariffGrid = usesgraphcrt.tariffGrid.pickingGrid();
-            usesgraphcrt.tariffGrid.sendGrid($(self).data('url'), tariffGrid);
+            if (!$.isEmptyObject(tariffGrid)) {
+                usesgraphcrt.tariffGrid.sendGrid($(self).data('url'), tariffGrid);
+            } else {
+                usesgraphcrt.tariffGrid.popupMsg('Данные актуальны.','info');
+            }
         });
+    },
+
+    popupMsg: function (msg, msgClass) {
+
+        $alertBlock.removeClass().addClass(msgClass).fadeIn();
+        $alertBlock.html(msg);
+
+        setTimeout(function () {
+            $alertBlock.fadeOut();
+        }, 2000);
+
     },
 
     renderCross: function () {
@@ -105,6 +107,7 @@ usesgraphcrt.tariffGrid = {
                 };
             }
         });
+
         return tariffGrid;
     },
 
@@ -115,16 +118,9 @@ usesgraphcrt.tariffGrid = {
             data: {tariffGrid: data, _csrf: csrfToken},
             success: function (response) {
                 if (response.status == 'success') {
-                    $alertBlock.removeClass('error').addClass('success').fadeIn();
-                    $alertBlock.html('Данные сохранены!');
-                } else {
-                    $alertBlock.removeClass('success').addClass('error').fadeIn();
-                    $alertBlock.html('Ошибка сохранения!');
-                }
-                setTimeout(function () {
-                    $alertBlock.fadeOut();
-                }, 1000);
 
+                    usesgraphcrt.tariffGrid.popupMsg(response.message, response.status);
+                }
             }
         });
     },

@@ -134,13 +134,15 @@ class PriceController extends Controller
             $model->max_discount = $tariff['discount'];
             if  (!$model->save()) {
                 return [
-                    'status' => 'error'
+                    'status' => 'error',
+                    'message' => 'Ошибка сохранения!',
                 ];
             }
         }
 
         return [
             'status' => 'success',
+            'message' => 'Данные сохранены!',
         ];
 
     }

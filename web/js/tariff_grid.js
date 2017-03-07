@@ -9,6 +9,7 @@ usesgraphcrt.tariffGrid = {
         $btnSubmit = $('[data-role=send-grid]');
         $servicesRow = $('[data-role=service-row]');
         $categoriesRow = $('[data-role=category-row]');
+        $tariffDosciuntInput = $('[data-role=tariff-discount]');
         $tariffInput = $('[data-role=tariff-price],[data-role=tariff-discount]');
         $tariffModal = $('[data-role=tariff-modal]');
         $tariffModalContent = $('[data-role=tariff-modal-content]');
@@ -50,13 +51,24 @@ usesgraphcrt.tariffGrid = {
             usesgraphcrt.tariffGrid.loadModal(url, data);
         });
 
+        $tariffDosciuntInput.on('change', function () {
+            var self = $(this),
+                price = +self.siblings('[data-role=tariff-price]').val();
+
+            if (+self.val() > price) {
+                self.val('');
+                alert('Скидка не может быть больше цены!');
+                self.focus();
+            }
+        });
+
         $btnSubmit.on('click', function () {
             self = this;
             tariffGrid = usesgraphcrt.tariffGrid.pickingGrid();
             if (!$.isEmptyObject(tariffGrid)) {
                 usesgraphcrt.tariffGrid.sendGrid($(self).data('url'), tariffGrid);
             } else {
-                usesgraphcrt.tariffGrid.popupMsg('Данные актуальны.','info');
+                usesgraphcrt.tariffGrid.popupMsg('Данные актуальны.', 'info');
             }
         });
     },
@@ -69,7 +81,6 @@ usesgraphcrt.tariffGrid = {
         setTimeout(function () {
             $alertBlock.fadeOut();
         }, 2000);
-
     },
 
     renderCross: function () {
@@ -118,7 +129,6 @@ usesgraphcrt.tariffGrid = {
             data: {tariffGrid: data, _csrf: csrfToken},
             success: function (response) {
                 if (response.status == 'success') {
-
                     usesgraphcrt.tariffGrid.popupMsg(response.message, response.status);
                 }
             }
@@ -127,7 +137,7 @@ usesgraphcrt.tariffGrid = {
 
     eqval: function () {
 
-        $.each($servicesRow,function ($key,$value) {
+        $.each($servicesRow, function ($key, $value) {
             if ($($value).height() > $categoriesRow.eq($key).height()) {
                 $categoriesRow.eq($key).height($($value).height());
             }
@@ -138,7 +148,7 @@ usesgraphcrt.tariffGrid = {
 };
 
 
-$(function() {
+$(function () {
     usesgraphcrt.tariffGrid.init();
 
     usesgraphcrt.tariffGrid.eqval();

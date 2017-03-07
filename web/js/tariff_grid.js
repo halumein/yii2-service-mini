@@ -57,7 +57,7 @@ usesgraphcrt.tariffGrid = {
 
             if (+self.val() > price) {
                 self.val('');
-                alert('Скидка не может быть больше цены!');
+                usesgraphcrt.tariffGrid.notify('Скидка не должна превышать значение цены!');
                 self.focus();
             }
         });
@@ -81,6 +81,11 @@ usesgraphcrt.tariffGrid = {
         setTimeout(function () {
             $alertBlock.fadeOut();
         }, 2000);
+    },
+
+    notify: function (str) {
+        $('[data-role=error-message]').html(str);
+        $('[data-role=error-box]').fadeIn(500).delay(4000).fadeOut(500);
     },
 
     renderCross: function () {

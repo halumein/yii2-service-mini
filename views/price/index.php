@@ -11,6 +11,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php if ((!empty($services)) && (!empty($categories))) { ?>
     <div class="price-index">
+        <div class="tariff-grid-error-box" data-role="error-box">
+            <p class="tariff-grid-error-message" data-role="error-message">
+
+            </p>
+        </div>
         <div class="col-md-12">
             <div class="row">
                 <div class="tariff-grid-left-column col-md-4" style="width: 20%">

@@ -4,6 +4,7 @@ namespace halumein\servicemini\controllers;
 
 use Yii;
 use halumein\servicemini\models\Service;
+use halumein\servicemini\models\ServiceToCategory as Tariff;
 use yii\helpers\ArrayHelper;
 use halumein\servicemini\models\search\ServiceSearch;
 use yii\web\Controller;
@@ -100,6 +101,8 @@ class ServiceController extends Controller
     {
         $this->findModel($id)->delete();
 
+        $this->deleteTariffByServiceId($id);
+
         return $this->redirect(['index']);
     }
 
@@ -117,5 +120,10 @@ class ServiceController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    protected function deleteTariffByServiceId($serviceId)
+    {
+        Tariff::deleteAll(['service_id' => $serviceId]);
     }
 }

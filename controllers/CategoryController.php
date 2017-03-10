@@ -135,6 +135,6 @@ class CategoryController extends Controller
 
     protected function deleteTariffByCategoryId($categoryId)
     {
-        Tariff::deleteAll(['service_id' => $categoryId]);
+        Tariff::deleteAll(['category_id' => $categoryId]);
     }
 }

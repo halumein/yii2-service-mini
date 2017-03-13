@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                    placeholder="Цена"
                                                    data-role="tariff-price" data-price="">
                                             <input class="form-control" style="width: 40%" type="text"
-                                                   placeholder="Скидка"
+                                                   placeholder="Баллы"
                                                    data-role="tariff-discount" data-discount="">
                                             <a data-role="tariff-modal-btn"
                                                data-url="<?= Url::to(['ajax-model-load']) ?>"><i

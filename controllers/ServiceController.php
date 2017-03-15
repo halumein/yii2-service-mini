@@ -10,26 +10,36 @@ use halumein\servicemini\models\search\ServiceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ServiceMiniController implements the CRUD actions for Service model.
  */
 class ServiceController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
-        return [
+        $behaviors = [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['post'],
                 ],
             ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => $this->module->adminRoles,
+                    ]
+                ]
+            ]
         ];
+
+        return $behaviors;
     }
+
 
     /**
      * Lists all ServiceMini models.
@@ -45,7 +55,7 @@ class ServiceController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    
+
 
     /**
      * Creates a new ServiceMini model.
@@ -57,7 +67,7 @@ class ServiceController extends Controller
         $model = new Service();
         $services = Service::find()->where("id != :id AND (parent_id = 0 OR parent_id IS NULL)", [':id' => (int)$model->id])->all();
         $services = ArrayHelper::map($services, 'id', 'name');
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect('index');
         } else {

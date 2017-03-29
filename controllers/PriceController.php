@@ -117,6 +117,7 @@ class PriceController extends Controller
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         $tariffGrid = yii::$app->request->post('tariffGrid');
+
         foreach ($tariffGrid as $key => $tariff) {
             $model = Tariff::find()
                 ->where([
@@ -125,19 +126,29 @@ class PriceController extends Controller
                 ])
                 ->one();
 
-            if (!$model) {
+            if (!$model && $tariff['price'] > 0) {
                 $model = new Tariff;
                 $model->service_id = $tariff['service_id'];
                 $model->category_id = $tariff['category_id'];
+            } else {
+                if ($model && $tariff['price'] == 0) {
+                    $model->delete();
+                    continue;
+                }
             }
-            $model->price = $tariff['price'];
-            $model->max_discount = $tariff['discount'];
-            if  (!$model->save()) {
-                return [
-                    'status' => 'error',
-                    'message' => 'Ошибка сохранения!',
-                ];
+            if  ($model) {
+                $model->price = $tariff['price'];
+                $model->max_discount = $tariff['discount'];
+
+                if  (!$model->save()) {
+                    return [
+                        'status' => 'error',
+                        'message' => 'Ошибка сохранения!',
+                    ];
+                }
+                
             }
+
         }
 
         return [

@@ -18,8 +18,8 @@
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
-        "pistol88/yii2-gallery": "*",
-        "pistol88/yii2-tree": "*",
+        "dvizh/yii2-gallery": "*",
+        "dvizh/yii2-tree": "*",
         "yiisoft/yii2-bootstrap": "*"
     },
     "config": {

@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sort')->textInput()->hint('Чем выше приоритет, тем выше элемент среди других в общем списке.'); ?>
 
-    <?=\pistol88\gallery\widgets\Gallery::widget(['model' => $model]); ?>
+    <?=\dvizh\gallery\widgets\Gallery::widget(['model' => $model]); ?>
     <br>
     <div class="form-group">
         <?php echo Html::submitButton($model->isNewRecord ? 'Добавить' : 'Редактировать', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

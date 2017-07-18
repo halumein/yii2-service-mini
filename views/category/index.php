@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]);
     } else {
-        $categoriesList = \pistol88\tree\widgets\Tree::widget(['model' => new \halumein\servicemini\models\Category(), 'viewUrl' => null]);
+        $categoriesList = \dvizh\tree\widgets\Tree::widget(['model' => new \halumein\servicemini\models\Category(), 'viewUrl' => null]);
     }
     echo $categoriesList;
     ?>

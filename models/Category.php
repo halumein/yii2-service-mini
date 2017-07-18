@@ -14,12 +14,12 @@ use Yii;
  */
 class Category extends \yii\db\ActiveRecord
 {
-    
+
     function behaviors()
     {
         return [
             'images' => [
-                'class' => 'pistol88\gallery\behaviors\AttachImages',
+                'class' => 'dvizh\gallery\behaviors\AttachImages',
                 'mode' => 'gallery',
             ],
         ];
